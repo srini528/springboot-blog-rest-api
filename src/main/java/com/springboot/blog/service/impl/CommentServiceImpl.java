@@ -92,4 +92,16 @@ public class CommentServiceImpl implements CommentService{
 		return mapToDto(newComment);
 	}
 
+	@Override
+	public void deleteCommentById(long postId, long commentId) {
+		// TODO Auto-generated method stub
+        Post post=postRepo.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post", "id", postId));
+		
+		Comment comment=commentRepo.findById(commentId).orElseThrow(()->new ResourceNotFoundException("Comment", "commentId", commentId));
+		if(!comment.getPost().getId().equals(post.getId())) {
+			throw new BlogAPIException(HttpStatus.BAD_REQUEST,"Given comment id does not belogns to post");
+		}
+		commentRepo.delete(comment);
+	}
+
 }
