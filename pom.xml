@@ -72,8 +72,9 @@
 			        <testFailureIgnore>true</testFailureIgnore>
 			    </configuration>
 
-                        </plugin>
+            </plugin>
 		</plugins>
+		<finalName>springboot-blog-rest-apis</finalName>
 	</build>
 
 </project>
