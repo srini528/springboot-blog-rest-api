@@ -20,13 +20,15 @@ import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.service.PostService;
 import com.springboot.blog.utility.AppConstants;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
 	@Autowired
 	private PostService service;
 	@PostMapping
-	public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO dto){
+	public ResponseEntity<PostDTO> createPost(@Valid @RequestBody PostDTO dto){
 		PostDTO res=service.createPost(dto);
 		return new ResponseEntity<PostDTO>(res,HttpStatus.CREATED);
 	}
@@ -50,7 +52,7 @@ public class PostController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<PostDTO> updatePost(@RequestBody PostDTO dto,@PathVariable(name="id")long id){
+	public ResponseEntity<PostDTO> updatePost(@Valid @RequestBody PostDTO dto,@PathVariable(name="id")long id){
 		PostDTO newdto=service.updatePostById(dto, id);
 		return ResponseEntity.ok(newdto);
 	}

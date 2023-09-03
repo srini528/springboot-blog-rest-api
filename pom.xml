@@ -53,7 +53,11 @@
 		    <artifactId>modelmapper</artifactId>
 		    <version>3.1.1</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-validation</artifactId>
+	    </dependency>
 	</dependencies>
 
 	<build>
