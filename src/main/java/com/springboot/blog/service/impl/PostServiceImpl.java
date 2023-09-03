@@ -4,6 +4,7 @@ package com.springboot.blog.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,8 @@ import com.springboot.blog.service.PostService;
 public class PostServiceImpl implements PostService {
 
 	@Autowired
+	private ModelMapper mapper;
+	@Autowired
 	private PostRepository repo;
 	@Override
 	public PostDTO createPost(PostDTO dto) {
@@ -29,21 +32,15 @@ public class PostServiceImpl implements PostService {
 		
 	}
 	private PostDTO convertToDTO(Post newPost) {
-		PostDTO responseDTO=new PostDTO();
-		responseDTO.setId(newPost.getId());
-		responseDTO.setTitle(newPost.getTitle());
-		responseDTO.setDescription(newPost.getDescription());
-		responseDTO.setContent(newPost.getContent());
+		PostDTO responseDTO=mapper.map(newPost, PostDTO.class);
+		
 		return responseDTO;
 	}
 	
 	private Post convertToEntity(PostDTO dto) {
-        Post post=new Post();
+        Post post=mapper.map(dto, Post.class);
 		
-		post.setId(dto.getId());
-		post.setTitle(dto.getTitle());
-		post.setDescription(dto.getDescription());
-		post.setContent(dto.getContent());
+		
 		
 		return post;
 	}
